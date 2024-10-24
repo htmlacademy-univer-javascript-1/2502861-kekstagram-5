@@ -36,7 +36,10 @@ function itPossibleHoldMeeting(timeBeginning, timeTheEnd, meetingStart, duration
   timeTheEnd = createsTimeArray(timeTheEnd);
   meetingStart = createsTimeArray(meetingStart);
 
-  if (timeBeginning.hours <= meetingStart.hours && timeBeginning.minutes <= meetingStart.minutes) {
+ if (
+   (timeBeginning.hours < meetingStart.hours) || 
+   (timeBeginning.hours === meetingStart.hours && timeBeginning.minutes <= meetingStart.minutes)
+) {
     const timeTheEndMeeting = calculateTheEndTimeMeeting(meetingStart.hours, meetingStart.minutes, durationMeeting);
     if (timeTheEndMeeting.hours <= timeTheEnd.hours && timeTheEndMeeting.minutes <= timeTheEnd.minutes) {
       return true;
