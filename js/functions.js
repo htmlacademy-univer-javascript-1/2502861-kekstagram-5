@@ -1,50 +1,49 @@
-// Создает объект, в котором ключи это часы и минуты
-function createsTimeArray(timeLine) {
-  timeLine = timeLine.split(':');
-  const arrayHoursAndMinutes = [];
-  for (let i = 0; i < timeLine.length; i++) {
-    const newNumber = parseInt(timeLine[i], 10);
-    arrayHoursAndMinutes.push(newNumber);
-  }
-  return {
-    hours: arrayHoursAndMinutes[0],
-    minutes: arrayHoursAndMinutes[1],
-  };
-}
+const verifyStringLength = (string, referenceLenth) =>
+  string.length <= referenceLenth;
 
-// Рассчитывает время окончания встречи
-function calculateTheEndTimeMeeting(hoursStartMeeting, minutesStartMeeting, durationMeeting) {
-  const meetingTheEndTime = {
-    hours: 0,
-    minutes: 0,
-  };
+verifyStringLength('Good morning', 10);
 
-  if (minutesStartMeeting + durationMeeting <= 59) {
-    meetingTheEndTime.hours = hoursStartMeeting;
-    meetingTheEndTime.minutes = minutesStartMeeting + durationMeeting;
-  } else {
-    meetingTheEndTime.hours = (hoursStartMeeting + Math.floor((minutesStartMeeting + durationMeeting) / 60));
-    meetingTheEndTime.minutes = (minutesStartMeeting + durationMeeting) - (Math.floor((minutesStartMeeting + durationMeeting) / 60) * 60);
-  }
-
-  return meetingTheEndTime;
-}
-
-// Проверяет можно ли провести встречу в рабочее время
-function itPossibleHoldMeeting(timeBeginning, timeTheEnd, meetingStart, durationMeeting) {
-  timeBeginning = createsTimeArray(timeBeginning);
-  timeTheEnd = createsTimeArray(timeTheEnd);
-  meetingStart = createsTimeArray(meetingStart);
-
- if (
-   (timeBeginning.hours < meetingStart.hours) || 
-   (timeBeginning.hours === meetingStart.hours && timeBeginning.minutes <= meetingStart.minutes)
-) {
-    const timeTheEndMeeting = calculateTheEndTimeMeeting(meetingStart.hours, meetingStart.minutes, durationMeeting);
-    if (timeTheEndMeeting.hours <= timeTheEnd.hours && timeTheEndMeeting.minutes <= timeTheEnd.minutes) {
-      return true;
+const isPalindrome = (string) => {
+  const stringToCheck = string.toLowerCase().replaceAll(' ', '');
+  const lastIndex = stringToCheck.length - 1;
+  for (let i = 0; i < stringToCheck.length / 2; i++) {
+    if (stringToCheck[i] !== stringToCheck[lastIndex - i]) {
+      return false;
     }
-    return false;
   }
-  return false;
-}
+  return true;
+};
+
+isPalindrome('abrAcad carba ');
+
+
+const getNumberFromString = (string) => {
+  let digitsString = '';
+  string += '';
+  for (let i = 0; i < string.length; i++) {
+    const character = parseInt(string[i], 10);
+    if (!isNaN(character)) {
+      digitsString += character;
+    }
+  }
+  return parseInt(digitsString, 10);
+};
+
+getNumberFromString(2023);
+
+const addSymbols = (string, minLength, extention) => {
+  let result = string;
+  while (result.length < minLength) {
+    const newResultLength = result.length + extention.length;
+    let newExtention;
+    if (newResultLength <= minLength) {
+      newExtention = extention;
+    } else {
+      newExtention = extention.slice(0, minLength - newResultLength);
+    }
+    result = newExtention + result;
+  }
+  return result;
+};
+
+addSymbols('q', 4, 'we');
