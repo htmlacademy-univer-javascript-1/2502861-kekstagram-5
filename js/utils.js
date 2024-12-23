@@ -22,4 +22,16 @@ function createIdGenerator(min, max) {
 
 const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
+
 export { getRandomNumber, getRandomObjectArray, createIdGenerator, getRandomArrayElement };
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {
+  createIdGenerator,
+  getRandomInteger,
+  createRandomIdFromRangeGenerator,
+  getRandomArrayElement,
+  isEscapeKey
+};
+
