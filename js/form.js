@@ -13,6 +13,7 @@ const pristine = new Pristine(imageForm, {
   errorTextTag: 'p',
   errorTextClass: 'form__error'
 }, true);
+
 const imagePreview = imageForm.querySelector('#preview');
 const scaleAddButton = imageForm.querySelector('.scale__control--bigger');
 const scaleDecreaseButton = imageForm.querySelector('.scale__control--smaller');
@@ -100,6 +101,10 @@ const addFilters = () => filterButtonList.addEventListener('click', onFilterClic
 
 const validateHashTagsField = (value) => {
   hashTagsField.value = value.trim();
+
+
+const validateHashTagsField = (value) => {
+
   const hashtags = value.toLowerCase()
     .split(' ')
     .filter((x) => x);
@@ -120,8 +125,12 @@ const onDocumentKeydown = (evt) => {
 };
 
 const validateComments = (value) => {
+
   value = value.trim();
   descriptionField.value = value;
+
+  descriptionField.value = value.trimStart();
+
   return value.length <= 140;
 };
 
@@ -132,9 +141,12 @@ const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   exitButton.addEventListener('click', closeModal);
+
   scaleAddButton.addEventListener('click', operateScale);
   scaleDecreaseButton.addEventListener('click', operateScale);
   addFilters();
+
+
 };
 
 function closeModal() {
@@ -146,9 +158,12 @@ function closeModal() {
   scaleOutput.value = '100%';
   document.removeEventListener('keydown', onDocumentKeydown);
   exitButton.removeEventListener('click', closeModal);
+
   scaleAddButton.addEventListener('click', operateScale);
   scaleDecreaseButton.addEventListener('click', operateScale);
   filterButtonList.removeEventListener('click', onFilterClick);
+
+
 }
 
 uploadInput.addEventListener('change', (evt) => {
