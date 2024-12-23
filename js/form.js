@@ -29,7 +29,7 @@ pristine.addValidator(hashTagsField, validateHashTagsField, 'Непонятны�
 const isOnFocus = (elementClass) => document.activeElement.classList.contains(`${elementClass}`);
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape' && !(isOnFocus('text__description') || isOnFocus('text__hashtags'))) {
+  if (evt.key === 'Escape' && !(isOnFocus('text__description') || isOnFocus('text__hashtags'))){
     closeModal();
   }
 };
@@ -48,7 +48,7 @@ const openModal = () => {
   exitButton.addEventListener('click', closeModal);
 };
 
-function closeModal() {
+function closeModal(){
   uploadModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   uploadInput.value = '';
@@ -70,7 +70,7 @@ exitButton.addEventListener('click', () => {
 
 imageForm.addEventListener('submit', (evt) => {
   const isValide = pristine.validate();
-  if (!isValide) {
+  if(!isValide){
     evt.preventDefault();
   }
 });
