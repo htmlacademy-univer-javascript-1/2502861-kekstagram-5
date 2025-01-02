@@ -5,6 +5,7 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
+
 const createRandomGenerator = (min, max) => {
   const previousValues = [];
 
@@ -15,11 +16,25 @@ const createRandomGenerator = (min, max) => {
     }
     while (previousValues.includes(currentValue)) {
       currentValue = getRandomNumber(min, max);
+
+const getRandomObjectArray = (builder, max) => Array.from({ length: getRandomNumber(0, max) }, builder);
+
+function createIdGenerator(min, max) {
+  let lastGeneratedId = min;
+
+  return function () {
+    lastGeneratedId += 1;
+    if (lastGeneratedId > max) {
+      lastGeneratedId = min;
+
     }
-    previousValues.push(currentValue);
-    return currentValue;
+
+    return lastGeneratedId;
   };
-};
+}
+
+const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
+
 
 const takeRandomElements = (array, length, randomizer) => Array.from({ length: length }, () => array[randomizer()]);
 
@@ -88,3 +103,18 @@ const debounce = (callback, timeoutDelay = 500) => {
 };
 
 export { showResultMessage, alertError, takeRandomElements, toggleButtons, debounce, createRandomGenerator };
+
+
+export { getRandomNumber, getRandomObjectArray, createIdGenerator, getRandomArrayElement };
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {
+  createIdGenerator,
+  getRandomInteger,
+  createRandomIdFromRangeGenerator,
+  getRandomArrayElement,
+  isEscapeKey
+};
+
+

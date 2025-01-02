@@ -1,5 +1,6 @@
 import { getPhotos } from './load.js';
 import { setFormSubmit } from './form.js';
+
 import { alertError } from './utils.js';
 import { addFilters } from './filters.js';
 import { drawPhotos } from './render-thumbnails.js';
@@ -18,3 +19,8 @@ addFilters();
 setFormSubmit();
 
 export { photos };
+
+
+getPhotos();
+setFormSubmit();
+
