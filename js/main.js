@@ -1,4 +1,5 @@
-import { NUMBER_PHOTO_DESCRIPTION_CREATED } from './data.js';
-import { createPhotoDescription } from './util.js';
+import { getPhotos } from './load.js';
+import { setFormSubmit } from './form.js';
 
-const newPhotoDescriptions = Array.from({ length: NUMBER_PHOTO_DESCRIPTION_CREATED }, createPhotoDescription);
+getPhotos();
+setFormSubmit();
