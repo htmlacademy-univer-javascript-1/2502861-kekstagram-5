@@ -2,10 +2,7 @@ import { drawPhotos, deletePhotos } from './render-thumbnails.js';
 import { debounce, takeRandomElements, createRandomGenerator } from './utils.js';
 import { photos } from './main.js';
 
-
 const TIMEOUT_DELAY = 500;
-
-
 const RANDOM_PHOTOS_LENGTH = 10;
 const FILTERS = {
   'filter-default': () => photos,
@@ -14,15 +11,9 @@ const FILTERS = {
 };
 const BUTTON_ACTIVITY_CLASS = 'img-filters__button--active';
 
-
 const imgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 
-const isButton = (evt) => evt.target.tagName === 'BUTTON';
-
-
-const imgFilters = document.querySelector('.img-filters');
-const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 const isButton = (evt) => evt.target.tagName === 'BUTTON';
 
 const onImgFiltersFormClick = debounce((evt) => {
@@ -30,15 +21,8 @@ const onImgFiltersFormClick = debounce((evt) => {
     deletePhotos();
     drawPhotos(FILTERS[evt.target.id]());
   }
-
 }, TIMEOUT_DELAY);
 
-const onButtonCLick = (evt) => {
-  if (isButton(evt)) {
-    const activeButton = imgFiltersForm.querySelector(`.${BUTTON_ACTIVITY_CLASS}`);
-
-
-});
 const onButtonCLick = (evt) => {
   if (isButton(evt)) {
     const activeButton = imgFiltersForm.querySelector(`.${BUTTON_ACTIVITY_CLASS}`);
@@ -48,23 +32,14 @@ const onButtonCLick = (evt) => {
       activeButton.disabled = true;
     }
 
-
-
-
     evt.target.classList.add(BUTTON_ACTIVITY_CLASS);
     activeButton.disabled = false;
   }
 };
 
-
-
-
 const addFilters = () => {
   imgFiltersForm.addEventListener('click', onImgFiltersFormClick);
   imgFiltersForm.addEventListener('click', onButtonCLick);
 };
-
-
-
 
 export { addFilters };
