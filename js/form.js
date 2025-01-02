@@ -1,5 +1,17 @@
+
 import { uploadPhoto } from './load.js';
 import { setPreview } from './image.js';
+
+
+import { uploadPhoto } from './load.js';
+import { showResultMessage } from './utils.js';
+
+
+import { uploadPhoto } from './load.js';
+
+
+
+
 
 const imageForm = document.querySelector('.img-upload__form');
 const uploadModal = document.querySelector('.img-upload__overlay');
@@ -16,6 +28,15 @@ const pristine = new Pristine(imageForm, {
   errorTextTag: 'p',
   errorTextClass: 'form__error'
 }, true);
+
+
+
+
+
+
+
+
+
 const imagePreview = imageForm.querySelector('#preview');
 const scaleAddButton = imageForm.querySelector('.scale__control--bigger');
 const scaleDecreaseButton = imageForm.querySelector('.scale__control--smaller');
@@ -25,12 +46,28 @@ const filterButtonList = document.querySelector('.effects__list');
 const SCALE_DIFFERENCE = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
+
 const slider = document.querySelector('.effect-level__slider');
+
+
+const slider = document.querySelector('.effect-level__slider');
+
+const sliderElement = document.querySelector('.effect-level__slider');
+
+
+
 const submitButton = document.querySelector('.img-upload__submit');
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+
+
+
+
+
+
+
 
 class Filter {
   constructor(name, min, max, step) {
@@ -61,7 +98,15 @@ const operateScale = (evt) => {
   imagePreview.style.transform = `scale(${scale / 100})`;
 };
 
+
 noUiSlider.create(slider, {
+
+
+noUiSlider.create(slider, {
+
+noUiSlider.create(sliderElement, {
+
+
   range: {
     min: 0,
     max: 100
@@ -73,6 +118,10 @@ noUiSlider.create(slider, {
 
 const operateSliderValue = (filter) => {
   if (filter.name === 'blur') {
+
+
+
+
     return `${slider.noUiSlider.get()}px`;
   }
 
@@ -81,10 +130,28 @@ const operateSliderValue = (filter) => {
 
 const setDefaultFilter = () => {
   slider.parentElement.classList.add('hidden');
+
+
+
+    return `${sliderElement.noUiSlider.get()}px`;
+  }
+
+  return `${sliderElement.noUiSlider.get()}`;
+};
+
+
+const setDefaultFilter = () => {
+  sliderElement.parentElement.classList.add('hidden');
+
+
   imagePreview.style.filter = '';
   effectLevel.value = DEFAULT_VOLUME;
   document.querySelector('#effect-none').checked = true;
 };
+
+
+
+
 
 const onFilterClick = (evt) => {
   if (evt.target.matches('input[type=radio]')) {
@@ -92,6 +159,18 @@ const onFilterClick = (evt) => {
       slider.parentElement.classList.remove('hidden');
       const filter = FILTERS[`${evt.target.id}`];
       slider.noUiSlider.updateOptions({
+
+
+
+
+const onFilterClick = (evt) => {
+  if (evt.target.matches('input[type=radio]')) {
+    if (evt.target.id !== 'effect-none') {
+      sliderElement.parentElement.classList.remove('hidden');
+      const filter = FILTERS[`${evt.target.id}`];
+      sliderElement.noUiSlider.updateOptions({
+
+
         range: {
           min: filter.min,
           max: filter.max
@@ -99,12 +178,34 @@ const onFilterClick = (evt) => {
         step: filter.step,
         start: filter.max,
       });
+
       slider.noUiSlider.on('update', () => {
+
+
+      slider.noUiSlider.on('update', () => {
+
+      sliderElement.noUiSlider.on('update', () => {
+
+
         imagePreview.style.filter = `${filter.name}(${operateSliderValue(filter)})`;
         effectLevel.value = operateSliderValue(filter) / filter.max * 100;
       });
     } else {
+
       setDefaultFilter();
+
+
+      setDefaultFilter();
+
+
+      setDefaultFilter();
+
+      sliderElement.parentElement.classList.add('hidden');
+      imagePreview.style.filter = '';
+      effectLevel.value = DEFAULT_VOLUME;
+
+
+
     }
   }
 };
@@ -112,6 +213,13 @@ const onFilterClick = (evt) => {
 const addFilters = () => filterButtonList.addEventListener('click', onFilterClick);
 
 const validateHashTagsField = (value) => {
+
+
+
+
+
+
+
   const hashtags = value.toLowerCase()
     .split(' ')
     .filter((x) => x);
@@ -136,6 +244,28 @@ pristine.addValidator(hashTagsField, isCountValid, 'Слишком много х
 pristine.addValidator(hashTagsField, isUniqie, 'Повтор хэш-тега');
 pristine.addValidator(hashTagsField, validateHashTagsField, 'Невалидный хэш-тег');
 
+
+
+
+  hashTagsField.value = value.trim();
+
+
+const validateHashTagsField = (value) => {
+
+  const hashtags = value.toLowerCase()
+    .split(' ')
+    .filter((x) => x);
+
+  const isUniqie = new Set(hashtags).size === hashtags.length;
+
+  return hashtags.every((tag) => HASHTAG_SAMPLE.test(tag)) && hashtags.length <= MAX_HASHTAGS_COUNT && isUniqie;
+};
+
+pristine.addValidator(hashTagsField, validateHashTagsField, 'Непонятные хештеги');
+
+
+
+
 const isOnFocus = (elementClass) => document.activeElement.classList.contains(`${elementClass}`);
 
 const onDocumentKeydown = (evt) => {
@@ -145,7 +275,26 @@ const onDocumentKeydown = (evt) => {
 };
 
 const validateComments = (value) => {
+
   value = value.trim();
+
+
+  value = value.trim();
+  descriptionField.value = value;
+
+
+  value = value.trim();
+  descriptionField.value = value;
+
+
+  value = value.trim();
+  descriptionField.value = value;
+
+  descriptionField.value = value.trimStart();
+
+
+
+
   return value.length <= 140;
 };
 
@@ -156,17 +305,55 @@ const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   exitButton.addEventListener('click', closeModal);
+
   scaleAddButton.addEventListener('click', operateScale);
   scaleDecreaseButton.addEventListener('click', operateScale);
   setPreview();
+
+
+  scaleAddButton.addEventListener('click', operateScale);
+  scaleDecreaseButton.addEventListener('click', operateScale);
+
   addFilters();
 };
 
 function closeModal() {
+
+
+
+
+  scaleAddButton.addEventListener('click', operateScale);
+  scaleDecreaseButton.addEventListener('click', operateScale);
+  addFilters();
+};
+
+function closeModal() {
+
+
+  scaleAddButton.addEventListener('click', operateScale);
+  scaleDecreaseButton.addEventListener('click', operateScale);
+  addFilters();
+
+
+};
+
+function closeModal() {
+  uploadModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+
+
+
   uploadInput.value = '';
   descriptionField.value = '';
   hashTagsField.value = '';
   scaleOutput.value = '100%';
+
+
+
+
+
+
+
   setDefaultFilter();
   uploadModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -175,6 +362,21 @@ function closeModal() {
   scaleAddButton.removeEventListener('click', operateScale);
   scaleDecreaseButton.removeEventListener('click', operateScale);
   filterButtonList.removeEventListener('click', onFilterClick);
+
+
+
+
+
+  document.removeEventListener('keydown', onDocumentKeydown);
+  exitButton.removeEventListener('click', closeModal);
+
+  scaleAddButton.addEventListener('click', operateScale);
+  scaleDecreaseButton.addEventListener('click', operateScale);
+  filterButtonList.removeEventListener('click', onFilterClick);
+
+
+
+
 }
 
 uploadInput.addEventListener('change', (evt) => {
@@ -186,6 +388,13 @@ exitButton.addEventListener('click', () => {
   closeModal();
 });
 
+
+
+
+
+
+
+
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
@@ -196,6 +405,9 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
+
+
+
 const setFormSubmit = () => {
   imageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -203,10 +415,91 @@ const setFormSubmit = () => {
     if (isValid) {
       blockSubmitButton();
       uploadPhoto(new FormData(evt.target))
+
         .then(() => closeModal())
+
+        .then(() => {
+          closeModal();
+          showResultMessage('success');
+        })
+        .catch(() => showResultMessage('error'))
+
         .finally(() => unblockSubmitButton());
     }
   });
 };
 
 export { setFormSubmit };
+
+
+
+let onModalClick;
+
+const deleteResultMessage = () => {
+  const messageSuccess = document.querySelector('.success');
+  const messageError = document.querySelector('.error');
+  let addedMessage;
+  if (messageSuccess) {
+    addedMessage = messageSuccess;
+  } else if (messageError) {
+    addedMessage = messageError;
+  }
+
+  addedMessage.remove();
+  document.removeEventListener('keydown', onModalKeydown);
+  document.removeEventListener('click', onModalClick);
+};
+
+function onModalKeydown(evt) {
+  if (evt.key === 'Escape') {
+    deleteResultMessage();
+  }
+}
+
+const showResultMessage = (templateId) => {
+  const messageTemplate = document.querySelector(`#${templateId}`).content;
+  const message = messageTemplate.cloneNode(true);
+  const messageFragment = document.createDocumentFragment();
+  messageFragment.appendChild(message);
+  document.body.appendChild(messageFragment);
+  const btn = document.querySelector(`.${templateId}__button`);
+  const addedMessage = document.querySelector(`.${templateId}`);
+  document.addEventListener('keydown', onModalKeydown);
+  onModalClick = (evt) => {
+    if (evt.target === addedMessage || evt.target === btn) {
+      deleteResultMessage();
+    }
+  };
+  document.addEventListener('click', onModalClick);
+};
+
+
+const setFormSubmit = () => {
+  {
+    imageForm.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      if (pristine.validate()) {
+        blockSubmitButton();
+        uploadPhoto(new FormData(evt.target))
+          .then(showResultMessage('success'))
+          .then(closeModal())
+          .catch(() => {
+            showResultMessage('error');
+          })
+          .finally(unblockSubmitButton());
+      }
+    });
+  }
+};
+
+export { setFormSubmit };
+
+imageForm.addEventListener('submit', (evt) => {
+  const isValide = pristine.validate();
+  if (!isValide) {
+    evt.preventDefault();
+  }
+});
+
+
+
