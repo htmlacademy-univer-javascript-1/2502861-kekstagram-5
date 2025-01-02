@@ -1,6 +1,16 @@
 
 import { openFullview } from './big-photo.js';
 
+const photoTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
+const photosFragment = document.createDocumentFragment();
+const photosContainer = document.querySelector('.pictures');
+
+
+
+import { openFullview } from './big-photo.js';
+
 
 import { createPhotos } from './data.js';
 import { openFullview } from './big-photo.js';
@@ -12,6 +22,7 @@ const photoTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 const photosFragment = document.createDocumentFragment();
 const photosContainer = document.querySelector('.pictures');
+
 
 
 const drawPhotos = (data) => {
@@ -28,6 +39,15 @@ const drawPhotos = (data) => {
       evt.preventDefault();
       openFullview(url, description, likes, comments);
     });
+
+  });
+  photosContainer.appendChild(photosFragment);
+};
+
+const deletePhotos = () => photosContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+
+export { drawPhotos, deletePhotos };
+
   });
   photosContainer.appendChild(photosFragment);
 };
