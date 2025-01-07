@@ -1,4 +1,5 @@
 import { openFullview } from './big-photo.js';
+
 const photoTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');

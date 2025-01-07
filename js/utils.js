@@ -1,3 +1,12 @@
+class Filter {
+  constructor(name, min, max, step) {
+    this.name = name;
+    this.min = min;
+    this.max = max;
+    this.step = step;
+  }
+}
+
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -36,8 +45,10 @@ const toggleButtons = (buttons, activeId) => {
   }
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const onModalKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     deleteResultMessage();
   }
 };
@@ -51,6 +62,8 @@ const awayModalClick = (evt) => {
     deleteResultMessage();
   }
 };
+
+const isOnFocus = (elementClass) => document.activeElement.classList.contains(`${elementClass}`);
 
 function deleteResultMessage() {
   const addedMessage = document.body.lastElementChild;
@@ -77,11 +90,9 @@ const showResultMessage = (templateId) => {
   btn.addEventListener('click', onModalButtonClick);
 };
 
-const alertError = () => {
-  showModal('error');
-  document.querySelector('.error__title').textContent = 'Ошибка подключения к серверу';
-  document.querySelector('.error__button').remove();
-};
+const showUploadSucccessMessage = () => showResultMessage('success');
+const showUploadErrorMessage = () => showResultMessage('error');
+const alertLoadError = () => showModal('data-error');
 
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
@@ -91,4 +102,15 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { showResultMessage, alertError, takeRandomElements, toggleButtons, debounce, createRandomGenerator };
+export {
+  showUploadSucccessMessage,
+  showUploadErrorMessage,
+  alertLoadError,
+  takeRandomElements,
+  toggleButtons,
+  debounce,
+  createRandomGenerator,
+  isEscapeKey,
+  isOnFocus,
+  Filter
+};

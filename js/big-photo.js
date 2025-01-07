@@ -1,10 +1,13 @@
-const fullscreenContainer = document.querySelector('.big-picture');
-const containerMeta = fullscreenContainer.querySelector('.big-picture__social');
-const commentsList = containerMeta.querySelector('.social__comments');
-const closeButton = fullscreenContainer.querySelector('.big-picture__cancel');
-const commentsLoader = containerMeta.querySelector('.social__comments-loader');
-const currentCommentsLoaded = containerMeta.querySelector('.current-count');
+import { isEscapeKey } from './utils.js';
+
 const COMMENTS_PER_LOAD = 5;
+const fullscreenModal = document.querySelector('.big-picture');
+const pictureMetadata = fullscreenModal.querySelector('.big-picture__social');
+const commentsList = pictureMetadata.querySelector('.social__comments');
+const closeButton = fullscreenModal.querySelector('.big-picture__cancel');
+const commentsLoader = pictureMetadata.querySelector('.social__comments-loader');
+const currentCommentsLoaded = pictureMetadata.querySelector('.social__comment-shown-count');
+const bigPicture = fullscreenModal.querySelector('.big-picture__img');
 let wrapper;
 
 const loadComment = (comment) => {
@@ -45,26 +48,22 @@ const drawBigPicture = (url, description, likes, comments) => {
   if (!url || !comments) {
     return;
   }
-  fullscreenContainer.querySelector('.big-picture__img')
-    .querySelector('img').src = url;
-  containerMeta.querySelector('.social__header')
-    .querySelector('.social__likes')
-    .querySelector('.likes-count').textContent = likes;
-  containerMeta.querySelector('.social__header')
-    .querySelector('.social__caption').textContent = description;
-  containerMeta.querySelector('.social__comment-count')
-    .querySelector('.comments-count').textContent = comments.length;
+
+  bigPicture.querySelector('img').src = url;
+  pictureMetadata.querySelector('.likes-count').textContent = likes;
+  pictureMetadata.querySelector('.social__caption').textContent = description;
+  pictureMetadata.querySelector('.social__comment-total-count').textContent = comments.length;
   insertComments(comments);
 };
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     closeFullview();
   }
 };
 
 function closeFullview() {
-  fullscreenContainer.classList.add('hidden');
+  fullscreenModal.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   document.body.classList.remove('modal-open');
   if (wrapper) {
@@ -80,7 +79,7 @@ closeButton.addEventListener('click', () => {
 });
 
 function openFullview(url, description, likes, comments) {
-  fullscreenContainer.classList.remove('hidden');
+  fullscreenModal.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   document.body.classList.add('modal-open');
   drawBigPicture(url, description, likes, comments);

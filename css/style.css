@@ -1206,7 +1206,8 @@
      */
 
   .error,
-  .success {
+  .success,
+  .data-error {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -1222,7 +1223,8 @@
   }
 
   .error__inner,
-  .success__inner {
+  .success__inner,
+  .data-error__inner {
     position: relative;
     width: 600px;
     padding: 50px 20px;
@@ -1249,7 +1251,8 @@
     padding-bottom: 75px;
   }
 
-  .error__title {
+  .error__title,
+  .data-error__title {
     position: relative;
 
     margin: 0;
@@ -1265,7 +1268,8 @@
     font-size: 32px;
   }
 
-  .error__title::before {
+  .error__title::before,
+  .data-error__title::before {
     content: "";
     position: absolute;
 

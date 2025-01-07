@@ -1,17 +1,18 @@
-import { getPhotos } from './load.js';
+import { getPhotos } from './server-api.js';
 import { setFormSubmit } from './form.js';
 import { addFilters } from './filters.js';
 import { drawPhotos } from './render-thumbnails.js';
+import { alertLoadError } from './utils.js';
 
 let photos = [];
 
-getPhotos()
-  .then((data) => {
-    drawPhotos(data);
-    photos = data.slice();
-  })
-  .then(() => document.querySelector('.img-filters').classList.remove('img-filters--inactive'));
+const onLoadSuccess = (data) => {
+  photos = data.slice();
+  drawPhotos(photos);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+};
 
+getPhotos(onLoadSuccess, alertLoadError);
 addFilters();
 setFormSubmit();
 
