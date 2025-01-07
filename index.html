@@ -34,7 +34,7 @@
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
           <form class="img-upload__form" id="upload-select-image" autocomplete="off" method="post"
-            enctype="multipart/form-data" action="https://29.javascript.htmlacademy.pro/kekstagram">
+            enctype="multipart/form-data">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
@@ -166,8 +166,8 @@
           </div>
 
           <!-- Комментарии к изображению -->
-          <div class="social__comment-count"><span class="current-count">5</span> из <span
-              class="comments-count">125</span> комментариев</div>
+          <div class="social__comment-count"><span class="social__comment-shown-count">5</span> из <span
+              class="social__comment-total-count">125</span> комментариев</div>
           <ul class="social__comments">
             <li class="social__comment">
               <img class="social__picture" src="img/avatar-4.svg" alt="Аватар комментатора фотографии" width="35"
@@ -242,6 +242,14 @@
       <div class="success__inner">
         <h2 class="success__title">Изображение успешно загружено</h2>
         <button type="button" class="success__button">Круто!</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="data-error">
+    <section class="data-error">
+      <div class="data-error__inner">
+        <h2 class="data-error__title">Ошибка подключения к серверу</h2>
       </div>
     </section>
   </template>
